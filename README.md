@@ -1,68 +1,24 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 区间复合平均价法（次低价平均）
+    ：M：为进入详评的投标人数量  
+a．如果M<10，不去掉任何一个报价  
+b．如果10<=M<20，去掉一个最高评标价和一个最低评标价，如果如在同一包内出现并列最高或最低评标价的情况，在计算基准价时只去掉其中一个最高或最低评标价，以下类推  
+c．如果20<=M<30，则去掉两个最高评标价和一个最低评标价  
+d．如果30<=M，则去掉三个最高评标价和两个最低评标价；  
 
-## Available Scripts
+然后计算剩余投标人（N个）评标价的算术平均值A1；  
+再剔除（剔除只为计算平均值使用，并不是废标）评标价与算术平均值A1 偏差超过[-20%，10%]区间的投标人报价，计算剔除后投标人（P个）评标价的算术平均值A2；
+最后计算A2和P个投标人中最低评标价的算术平均值A3，以A3为基准价；  
+若N个评标价均在算术平均值A1 [-20%，10%]区间以外，则所有进入详评的投标人（M个）评标价的算术平均值A4作为基准价。  
 
-In the project directory, you can run:
+价格部分得分=100-100×n×m×|投标人的评标总价-基准价|/基准价； 
+当投标人的评标总价>=基准价，m=1；  
+当投标人的评标总价<基准价，m=[0.3，0.8]；  
+当计算出的价格部分得分<0，按0分计。】
 
-### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+价格分权重，为变量，由用户输入，对所有有效厂商起作用
+m值，为变量【0.3，0.8】，为变量，由用户输入，对所有有效厂商起作用
+n值，也是变量由用户输入
+增加一列价格权重评分：最终各分 x 价格分权重
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+小数点后四位
